@@ -1,0 +1,879 @@
+\def\crossbarpfheight{0.25}
+\def\crossbarqgheight{0.90}
+\def\crossbarcrossing{0.3}
+\def\crossbarlineoutside{0.7}
+
+% functional block
+\def\functionalblockpfheight{0.25}
+\def\functionalblockqgheight{0.90}
+\def\functionalblocklineoutside{0.7}
+
+\newlength{\crossbarheight}
+\newlength{\crossbarwidth}
+\newlength{\crossbarvarmargin}
+\newlength{\defaultpgflinewidth}
+\newlength{\combinersize}
+
+%functional block
+\newlength{\functionalblockheight}
+\newlength{\functionalblockwidth}
+\newlength{\functionalblockvarmargin}
+%\newlength{\defaultpgflinewidth}
+
+\setlength{\crossbarheight}{2em}
+\setlength{\crossbarwidth}{1.5em}
+\setlength{\crossbarvarmargin}{1.2em}
+\setlength{\combinersize}{10pt}
+
+%  functional block
+
+\setlength{\functionalblockheight}{2em}
+\setlength{\functionalblockwidth}{1.5em}
+\setlength{\functionalblockvarmargin}{1.2em}
+
+
+\makeatletter
+
+\pgfdeclareshape{oldcrossbargate}{
+
+ 	\nodeparts{}
+	\inheritanchorborder[from=rectangle]
+	\inheritsavedanchors[from=rectangle]	
+	
+	
+	\savedanchor{\varpos}{
+		\pgf@x=0\crossbarwidth
+		\pgf@y=0.8\crossbarheight
+	}
+
+	\savedanchor{\northeast}{
+		\pgf@x=0.5\crossbarwidth
+		\pgf@y=0.5\crossbarheight
+	}
+	\savedanchor{\southwest} {
+		\pgf@x=-\pgf@x
+		\pgf@y=-\pgf@y
+	}
+	
+	\savedanchor{\p}{
+		\pgf@x=-\crossbarlineoutside\crossbarwidth
+		\pgf@y=0.2\crossbarheight
+	}
+	
+	\savedanchor{\q}{
+		\pgf@x=-\crossbarlineoutside\crossbarwidth
+		\pgf@y=-0.2\crossbarheight
+	}	
+	
+	\savedanchor{\f}{
+		\pgf@x=\crossbarlineoutside\crossbarwidth
+		\pgf@y=0.2\crossbarheight
+	}
+	
+	\savedanchor{\g}{
+		\pgf@x=\crossbarlineoutside\crossbarwidth
+		\pgf@y=-0.2\crossbarheight
+	}
+	
+	\savedanchor{\pcross}{
+		\pgf@x=-0.25\crossbarwidth 
+		\pgf@y=0.2\crossbarheight
+	}
+	
+	\savedanchor{\qcross}{
+		\pgf@x=-0.25\crossbarwidth 
+		\pgf@y=-0.2\crossbarheight
+	}	
+	
+	\savedanchor{\fcross}{
+		\pgf@x=0.25\crossbarwidth 
+		\pgf@y=0.2\crossbarheight	
+	}
+	
+	\savedanchor{\gcross}{
+		\pgf@x=0.25\crossbarwidth 
+		\pgf@y=-0.2\crossbarheight
+	}
+	
+	
+	\anchor{f}{\f}
+	\anchor{g}{\g}
+	\anchor{p}{\p}
+	\anchor{q}{\q}
+	\anchor{fcross}{\fcross}
+	\anchor{gcross}{\gcross}
+	\anchor{pcross}{\pcross}
+	\anchor{qcross}{\qcross}
+	\anchor{varpos}{\varpos}
+	\anchor{center}{\pgfpointorigin}
+	
+	\backgroundpath{
+		% store lower right in xa/ya and upper right in xb/yb
+		\southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
+		\northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y
+
+
+		% rectangle
+		\pgfpathmoveto{\pgfpoint{\pgf@xa}{\pgf@ya}}
+		\pgfpathlineto{\pgfpoint{\pgf@xa}{\pgf@yb}}
+		\pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@yb}}
+		\pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@ya}}
+		\pgfpathlineto{\pgfpoint{\pgf@xa}{\pgf@ya}}
+		\pgfusepath{draw}
+		
+		
+		% Bars
+		\p \pgf@xa=\pgf@x \pgf@ya=\pgf@y
+		\f \pgf@xb=\pgf@x \pgf@yb=\pgf@y
+		\pgfpathmoveto{\pgfpoint{\pgf@xa}{\pgf@ya}}
+		\pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@yb}}
+		
+		\q \pgf@xa=\pgf@x \pgf@ya=\pgf@y
+		\g \pgf@xb=\pgf@x \pgf@yb=\pgf@y
+		\pgfpathmoveto{\pgfpoint{\pgf@xa}{\pgf@ya}}
+		\pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@yb}}
+		
+
+		% Cross
+		\pcross \pgf@xa=\pgf@x \pgf@ya=\pgf@y
+		\gcross \pgf@xb=\pgf@x \pgf@yb=\pgf@y
+		\pgfpathmoveto{\pgfpoint{\pgf@xa}{\pgf@ya}}
+		\pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@yb}}	
+		
+		\fcross \pgf@xa=\pgf@x \pgf@ya=\pgf@y
+		\qcross \pgf@xb=\pgf@x \pgf@yb=\pgf@y
+		\pgfpathmoveto{\pgfpoint{\pgf@xa}{\pgf@ya}}
+		\pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@yb}}
+		
+		% enforce drawing
+		\pgfusepath{draw}			
+		
+	}
+}
+
+\pgfdeclareshape{crossbargate}{
+
+ 	\nodeparts{text}
+	\inheritanchorborder[from=rectangle]
+	\inheritsavedanchors[from=rectangle]	
+	
+	\savedanchor\centerpoint{%
+		\pgf@x=.5\wd\pgfnodeparttextbox%
+		\pgf@y=.5\ht\pgfnodeparttextbox%
+		\advance\pgf@y by -.5\dp\pgfnodeparttextbox%
+	}
+	\anchor{center}{\centerpoint}
+	
+	\savedanchor{\variableanchor}{
+		\pgf@x=.5\wd\pgfnodeparttextbox
+		\pgf@y=.5\ht\pgfnodeparttextbox
+		\advance\pgf@y by -.5\dp\pgfnodeparttextbox%
+		\advance\pgf@y by -\crossbarvarmargin
+	}
+	
+
+	\savedanchor{\northeast}{
+		\pgf@x=.5\wd\pgfnodeparttextbox
+		\advance\pgf@x by 0.5\crossbarwidth%
+		\pgf@y=.5\ht\pgfnodeparttextbox
+		\advance\pgf@y by -.5\dp\pgfnodeparttextbox%
+		\advance\pgf@y by -\crossbarvarmargin
+	}
+	
+	\savedanchor{\southwest} {
+		\pgf@x=.5\wd\pgfnodeparttextbox
+		\advance\pgf@x by -0.5\crossbarwidth%
+		\pgf@y=.5\ht\pgfnodeparttextbox
+		\advance\pgf@y by -.5\dp\pgfnodeparttextbox%
+		\advance\pgf@y by -\crossbarheight
+		\advance\pgf@y by -\crossbarvarmargin
+	}
+	
+	\savedanchor{\p}{
+		\pgf@x=.5\wd\pgfnodeparttextbox
+		\advance\pgf@x by -\crossbarlineoutside\crossbarwidth%
+		\pgf@y=0.2\crossbarheight
+		\advance\pgf@y by -.5\dp\pgfnodeparttextbox%
+		\advance\pgf@y by -\crossbarpfheight\crossbarheight
+		\advance\pgf@y by -\crossbarvarmargin
+	}
+	
+	\savedanchor{\q}{
+		\pgf@x=.5\wd\pgfnodeparttextbox
+		\advance\pgf@x by -\crossbarlineoutside\crossbarwidth%
+		\pgf@y=0.2\crossbarheight
+		\advance\pgf@y by -.5\dp\pgfnodeparttextbox%
+		\advance\pgf@y by -\crossbarqgheight\crossbarheight
+		\advance\pgf@y by -\crossbarvarmargin
+	}	
+	
+	\savedanchor{\f}{
+		\pgf@x=.5\wd\pgfnodeparttextbox
+		\advance\pgf@x by \crossbarlineoutside\crossbarwidth%
+		\pgf@y=0.2\crossbarheight
+		\advance\pgf@y by -.5\dp\pgfnodeparttextbox%
+		\advance\pgf@y by -\crossbarpfheight\crossbarheight
+		\advance\pgf@y by -\crossbarvarmargin
+	}
+	
+	\savedanchor{\g}{
+		\pgf@x=.5\wd\pgfnodeparttextbox
+		\advance\pgf@x by \crossbarlineoutside\crossbarwidth%
+		\pgf@y=0.2\crossbarheight
+		\advance\pgf@y by -.5\dp\pgfnodeparttextbox%
+		\advance\pgf@y by -\crossbarqgheight\crossbarheight
+		\advance\pgf@y by -\crossbarvarmargin
+	}
+	
+	
+% 	\def\crossbarleftcrossing{0.3}
+% \def\crossbarrightcrossing{0.8}
+	
+	\savedanchor{\pcrossing}{
+		\pgf@x=.5\wd\pgfnodeparttextbox
+		\advance\pgf@x by -\crossbarcrossing\crossbarwidth%
+		\pgf@y=0.2\crossbarheight
+		\advance\pgf@y by -.5\dp\pgfnodeparttextbox%
+		\advance\pgf@y by -\crossbarpfheight\crossbarheight
+		\advance\pgf@y by -\crossbarvarmargin
+	}
+	\savedanchor{\gcrossing}{
+		\pgf@x=.5\wd\pgfnodeparttextbox
+		\advance\pgf@x by \crossbarcrossing\crossbarwidth%
+		\pgf@y=0.2\crossbarheight
+		\advance\pgf@y by -.5\dp\pgfnodeparttextbox%
+		\advance\pgf@y by -\crossbarqgheight\crossbarheight
+		\advance\pgf@y by -\crossbarvarmargin
+	}
+	\savedanchor{\fcrossing}{
+		\pgf@x=.5\wd\pgfnodeparttextbox
+		\advance\pgf@x by \crossbarcrossing\crossbarwidth%
+		\pgf@y=0.2\crossbarheight
+		\advance\pgf@y by -.5\dp\pgfnodeparttextbox%
+		\advance\pgf@y by -\crossbarpfheight\crossbarheight
+		\advance\pgf@y by -\crossbarvarmargin
+	}
+	\savedanchor{\qcrossing}{
+		\pgf@x=.5\wd\pgfnodeparttextbox
+		\advance\pgf@x by -\crossbarcrossing\crossbarwidth%
+		\pgf@y=0.2\crossbarheight
+		\advance\pgf@y by -.5\dp\pgfnodeparttextbox%
+		\advance\pgf@y by -\crossbarqgheight\crossbarheight
+		\advance\pgf@y by -\crossbarvarmargin
+	}
+	
+	\anchor{f}{\f}
+	\anchor{g}{\g}
+	\anchor{p}{\p}
+	\anchor{q}{\q}
+	\anchor{var}{\variableanchor}
+	
+	\backgroundpath{
+		
+		%%%%%%%%
+		% draw the rectangle
+
+		% store lower right in xa/ya and upper right in xb/yb
+		\southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
+		\northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y
+
+		\pgfpathmoveto{\pgfpoint{\pgf@xa}{\pgf@ya}}
+		\pgfpathlineto{\pgfpoint{\pgf@xa}{\pgf@yb}}
+		\pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@yb}}
+		\pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@ya}}
+		\pgfpathlineto{\pgfpoint{\pgf@xa}{\pgf@ya}}
+ 		\pgfusepath{draw}
+		
+		
+		%%%%%%%
+		% draw the variable input
+% 		\variableanchor \pgf@xa=\pgf@x \pgf@ya=\pgf@y
+% 		\pgf@xb=\pgf@x 
+% 		\pgf@yb=0pt
+% 		\advance\pgf@yb by -0.2\crossbarvarmargin%
+% 		\pgfpathmoveto{\pgfpoint{\pgf@xa}{\pgf@ya}}
+% 		\pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@yb}}
+% 		\pgfusepath{draw}
+		
+		
+		%%%%%%%
+		% draw the vertical bars
+		
+		%\pgfsetlinewidth{\crossbarlinethickness\defaultpgflinewidth}
+		\p \pgf@xa=\pgf@x \pgf@ya=\pgf@y
+		\f \pgf@xb=\pgf@x \pgf@yb=\pgf@y
+		\pgfpathmoveto{\pgfpoint{\pgf@xa}{\pgf@ya}}
+		\pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@yb}}
+
+
+		\q \pgf@xa=\pgf@x \pgf@ya=\pgf@y
+		\g \pgf@xb=\pgf@x \pgf@yb=\pgf@y
+		\pgfpathmoveto{\pgfpoint{\pgf@xa}{\pgf@ya}}
+		\pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@yb}}
+
+
+
+		%%%%%%%
+		% draw the cross
+		\pcrossing \pgf@xa=\pgf@x \pgf@ya=\pgf@y
+		\gcrossing \pgf@xb=\pgf@x \pgf@yb=\pgf@y
+		\pgfpathmoveto{\pgfpoint{\pgf@xa}{\pgf@ya}}
+		\pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@yb}}
+
+		\qcrossing \pgf@xa=\pgf@x \pgf@ya=\pgf@y
+		\fcrossing \pgf@xb=\pgf@x \pgf@yb=\pgf@y
+		\pgfpathmoveto{\pgfpoint{\pgf@xa}{\pgf@ya}}
+		\pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@yb}}
+		\pgfusepath{draw}
+		
+	}
+}
+
+
+\pgfdeclareshape{splittergate}{
+
+ 	\nodeparts{}
+	\inheritanchorborder[from=rectangle]
+	\inheritsavedanchors[from=rectangle]	
+	
+	\savedanchor\centerpoint{%
+		\pgf@x=.5\wd\pgfnodeparttextbox%
+		\pgf@y=.5\ht\pgfnodeparttextbox%
+		\advance\pgf@y by -.5\dp\pgfnodeparttextbox%
+	}
+	\anchor{center}{\centerpoint}
+
+	\savedanchor{\northeast}{
+		\pgf@x=0.5\combinersize
+		\pgf@y=0.5\combinersize
+	}
+	
+	\savedanchor{\southwest}{
+		\pgf@x=-0.5\combinersize
+		\pgf@y=-0.5\combinersize
+	}
+	
+	\savedanchor{\inanchor}{
+			\pgf@x=-\crossbarlineoutside\combinersize
+			\pgf@y=0pt
+	}
+	
+	\savedanchor{\outanchor}{
+			\pgf@x=\crossbarlineoutside\combinersize
+			\pgf@y=0pt
+	}
+	
+	
+	\savedanchor{\inline}{
+			\pgf@x=-0.5\combinersize
+			\pgf@y=0pt
+	}
+	
+	\savedanchor{\outline}{
+			\pgf@x=0.5\combinersize
+			\pgf@y=0pt
+	}	
+		
+	\anchor{in}{\inanchor}
+	\anchor{out}{\outanchor}
+	\backgroundpath{
+		
+		%%%%%%%%
+		% draw the rectangle
+
+		% store lower right in xa/ya and upper right in xb/yb
+		\southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
+		\northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y
+
+		\pgfpathmoveto{\pgfpoint{\pgf@xa}{\pgf@ya}}
+		\pgfpathlineto{\pgfpoint{\pgf@xa}{\pgf@yb}}
+		\pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@yb}}
+		\pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@ya}}
+		\pgfpathclose
+		\pgfusepath{draw}
+		
+		
+		%%%%%%% 
+		% draw the symbol
+		\pgfpathmoveto{\pgfpointorigin}
+		\pgfpathlineto{\pgfpoint{-3pt}{0pt}}
+		
+		\pgfpathmoveto{\pgfpointorigin}
+		\pgfpathlineto{\pgfpoint{3pt}{1.5pt}}
+		
+		\pgfpathmoveto{\pgfpointorigin}
+		\pgfpathlineto{\pgfpoint{3pt}{0pt}}
+		
+		\pgfpathmoveto{\pgfpointorigin}
+		\pgfpathlineto{\pgfpoint{3pt}{-1.5pt}}
+		\pgfusepath{draw}
+		
+		%%%%%%% 
+		% draw the incoming/outgoing line
+		\inline \pgf@xa=\pgf@x \pgf@ya=\pgf@y
+		\inanchor \pgf@xb=\pgf@x \pgf@yb=\pgf@y	
+		\pgfpathmoveto{\pgfpoint{\pgf@xa}{\pgf@ya}}
+		\pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@yb}}
+		
+		\outline \pgf@xa=\pgf@x \pgf@ya=\pgf@y
+		\outanchor \pgf@xb=\pgf@x \pgf@yb=\pgf@y	
+		\pgfpathmoveto{\pgfpoint{\pgf@xa}{\pgf@ya}}
+		\pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@yb}}		
+		\pgfusepath{draw}			
+		\pgfusepath{draw}
+	}
+}
+
+\pgfdeclareshape{combinergate}{
+
+ 	\nodeparts{}
+	\inheritanchorborder[from=rectangle]
+	\inheritsavedanchors[from=rectangle]	
+
+	\savedanchor\centerpoint{%
+		\pgf@x=.5\wd\pgfnodeparttextbox%
+		\pgf@y=.5\ht\pgfnodeparttextbox%
+		\advance\pgf@y by -.5\dp\pgfnodeparttextbox%
+	}
+	\anchor{center}{\centerpoint}
+
+
+
+	\savedanchor{\northeast}{
+		\pgf@x=0.5\combinersize
+		\pgf@y=0.5\combinersize
+	}
+	
+	\savedanchor{\southwest}{
+		\pgf@x=-0.5\combinersize
+		\pgf@y=-0.5\combinersize
+	}
+	
+	\savedanchor{\inanchor}{
+			\pgf@x=-\crossbarlineoutside\combinersize
+			\pgf@y=0pt
+	}
+	
+	\savedanchor{\outanchor}{
+			\pgf@x=\crossbarlineoutside\combinersize
+			\pgf@y=0pt
+	}
+	
+	\savedanchor{\inline}{
+			\pgf@x=-0.5\combinersize
+			\pgf@y=0pt
+	}
+	
+	\savedanchor{\outline}{
+			\pgf@x=0.5\combinersize
+			\pgf@y=0pt
+	}		
+		
+	\anchor{in}{\inanchor}
+	\anchor{out}{\outanchor}
+	\backgroundpath{
+		
+		%%%%%%%%
+		% draw the rectangle
+
+		% store lower right in xa/ya and upper right in xb/yb
+		\southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
+		\northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y
+
+		\pgfpathmoveto{\pgfpoint{\pgf@xa}{\pgf@ya}}
+		\pgfpathlineto{\pgfpoint{\pgf@xa}{\pgf@yb}}
+		\pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@yb}}
+		\pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@ya}}
+		\pgfpathclose
+		\pgfusepath{draw}
+		
+		
+		%%%%%%% 
+		% draw the symbol
+		\pgfpathmoveto{\pgfpointorigin}
+		\pgfpathlineto{\pgfpoint{3pt}{0pt}}
+		
+		\pgfpathmoveto{\pgfpointorigin}
+		\pgfpathlineto{\pgfpoint{-3pt}{1.5pt}}
+		
+		\pgfpathmoveto{\pgfpointorigin}
+		\pgfpathlineto{\pgfpoint{-3pt}{0pt}}
+		
+		\pgfpathmoveto{\pgfpointorigin}
+		\pgfpathlineto{\pgfpoint{-3pt}{-1.5pt}}
+		\pgfusepath{draw}
+		
+		%%%%%%% 
+		% draw the incoming/outgoing line
+		\inline \pgf@xa=\pgf@x \pgf@ya=\pgf@y
+		\inanchor \pgf@xb=\pgf@x \pgf@yb=\pgf@y	
+		\pgfpathmoveto{\pgfpoint{\pgf@xa}{\pgf@ya}}
+		\pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@yb}}
+		
+		\outline \pgf@xa=\pgf@x \pgf@ya=\pgf@y
+		\outanchor \pgf@xb=\pgf@x \pgf@yb=\pgf@y	
+		\pgfpathmoveto{\pgfpoint{\pgf@xa}{\pgf@ya}}
+		\pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@yb}}		
+		\pgfusepath{draw}		
+		
+
+	}
+}
+
+\pgfdeclareshape{functionalproduct}{
+
+ 	\nodeparts{}
+	\inheritanchorborder[from=rectangle]
+	\inheritsavedanchors[from=rectangle]	
+	
+	
+	\savedanchor{\varpos}{
+		\pgf@x=0\functionalblockwidth
+		\pgf@y=0.8\functionalblockheight
+	}
+
+	\savedanchor{\northeast}{
+		\pgf@x=0.5\functionalblockwidth
+		\pgf@y=0.5\functionalblockheight
+	}
+	\savedanchor{\southwest} {
+		\pgf@x=-\pgf@x
+		\pgf@y=-\pgf@y
+	}
+	
+	\savedanchor{\p}{
+		\pgf@x=-\functionalblocklineoutside\functionalblockwidth
+		\pgf@y=0.2\functionalblockheight
+	}
+	
+	\savedanchor{\q}{
+		\pgf@x=-\functionalblocklineoutside\functionalblockwidth
+		\pgf@y=-0.2\functionalblockheight
+	}	
+	
+	\savedanchor{\f}{
+		\pgf@x=\functionalblocklineoutside\functionalblockwidth
+		\pgf@y=0.2\functionalblockheight
+	}
+	
+	\savedanchor{\g}{
+		\pgf@x=\functionalblocklineoutside\functionalblockwidth
+		\pgf@y=-0.2\functionalblockheight
+	}
+	
+			%\savedanchor{\pcross}{
+	%	\pgf@x=-0.25\crossbarwidth 
+	%	\pgf@y=0.2\crossbarheight
+	%}
+	
+	%\savedanchor{\qcross}{
+	%	\pgf@x=-0.25\crossbarwidth 
+	%	\pgf@y=-0.2\crossbarheight
+	%}	
+	
+	%\savedanchor{\fcross}{
+	%	\pgf@x=0.25\crossbarwidth 
+	%	\pgf@y=0.2\crossbarheight	
+	%}
+	
+	%\savedanchor{\gcross}{
+	%	\pgf@x=0.25\crossbarwidth 
+	%	\pgf@y=-0.2\crossbarheight
+	%}
+	
+	
+	\anchor{f}{\f}
+	\anchor{g}{\g}
+	\anchor{p}{\p}
+	\anchor{q}{\q}
+	\anchor{varpos}{\varpos}
+	\anchor{center}{\pgfpointorigin}
+	
+	\backgroundpath{
+		% store lower right in xa/ya and upper right in xb/yb
+		\southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
+		\northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y
+
+
+		% rectangle
+		\pgfpathmoveto{\pgfpoint{\pgf@xa}{\pgf@ya}}
+		\pgfpathlineto{\pgfpoint{\pgf@xa}{\pgf@yb}}
+		\pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@yb}}
+		\pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@ya}}
+		\pgfpathlineto{\pgfpoint{\pgf@xa}{\pgf@ya}}
+		\pgfusepath{draw}
+		
+		
+		% Bars
+		\p \pgf@xa=\pgf@x \pgf@ya=\pgf@y
+		\f \pgf@xb=\pgf@x \pgf@yb=\pgf@y
+		%\pgfpathmoveto{\pgfpoint{\pgf@xa}{\pgf@ya}}
+		%\pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@yb}}
+		
+		\q \pgf@xa=\pgf@x \pgf@ya=\pgf@y
+		\g \pgf@xb=\pgf@x \pgf@yb=\pgf@y
+		%\pgfpathmoveto{\pgfpoint{\pgf@xa}{\pgf@ya}}
+		%\pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@yb}}
+		
+
+		% Cross
+	  %	\pcross \pgf@xa=\pgf@x \pgf@ya=\pgf@y
+	%	\gcross \pgf@xb=\pgf@x \pgf@yb=\pgf@y
+	%	\pgfpathmoveto{\pgfpoint{\pgf@xa}{\pgf@ya}}
+	%	\pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@yb}}	
+		
+	%	\fcross \pgf@xa=\pgf@x \pgf@ya=\pgf@y
+	%	\qcross \pgf@xb=\pgf@x \pgf@yb=\pgf@y
+	%	\pgfpathmoveto{\pgfpoint{\pgf@xa}{\pgf@ya}}
+	%	\pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@yb}}
+		
+		% enforce drawing
+		\pgfusepath{draw}			
+		
+	}
+}
+
+\pgfdeclareshape{functionalblockgate}{
+
+ 	\nodeparts{text}
+	\inheritanchorborder[from=rectangle]
+	\inheritsavedanchors[from=rectangle]	
+	
+	\savedanchor\centerpoint{%
+		\pgf@x=.5\wd\pgfnodeparttextbox%
+		\pgf@y=.5\ht\pgfnodeparttextbox%
+		\advance\pgf@y by -.5\dp\pgfnodeparttextbox%
+	}
+	\anchor{center}{\centerpoint}
+	
+	\savedanchor{\variableanchor}{
+		\pgf@x=.5\wd\pgfnodeparttextbox
+		\pgf@y=.5\ht\pgfnodeparttextbox
+		\advance\pgf@y by -.5\dp\pgfnodeparttextbox%
+		\advance\pgf@y by -\functionalblockvarmargin
+	}
+	
+
+	\savedanchor{\northeast}{
+		\pgf@x=.5\wd\pgfnodeparttextbox
+		\advance\pgf@x by 0.5\functionalblockwidth%
+		\pgf@y=.5\ht\pgfnodeparttextbox
+		\advance\pgf@y by -.5\dp\pgfnodeparttextbox%
+		\advance\pgf@y by -\functionalblockvarmargin
+	}
+	
+	\savedanchor{\southwest} {
+		\pgf@x=.5\wd\pgfnodeparttextbox
+		\advance\pgf@x by -0.5\functionalblockwidth%
+		\pgf@y=.5\ht\pgfnodeparttextbox
+		\advance\pgf@y by -.5\dp\pgfnodeparttextbox%
+		\advance\pgf@y by -\functionalblockheight
+		\advance\pgf@y by -\functionalblockvarmargin
+	}
+	
+	\savedanchor{\p}{
+		\pgf@x=.5\wd\pgfnodeparttextbox
+		\advance\pgf@x by -\functionalblocklineoutside\functionalblockwidth%
+		\pgf@y=0.2\functionalblockheight
+		\advance\pgf@y by -.5\dp\pgfnodeparttextbox%
+		\advance\pgf@y by -\functionalblockpfheight\functionalblockheight
+		\advance\pgf@y by -\functionalblockvarmargin
+	}
+	
+	\savedanchor{\q}{
+		\pgf@x=.5\wd\pgfnodeparttextbox
+		\advance\pgf@x by -\functionalblocklineoutside\functionalblockwidth%
+		\pgf@y=0.2\functionalblockheight
+		\advance\pgf@y by -.5\dp\pgfnodeparttextbox%
+		\advance\pgf@y by -\functionalblockqgheight\functionalblockheight
+		\advance\pgf@y by -\functionalblockvarmargin
+	}	
+	
+	\savedanchor{\f}{
+		\pgf@x=.5\wd\pgfnodeparttextbox
+		\advance\pgf@x by \functionalblocklineoutside\functionalblockwidth%
+		\pgf@y=0.2\functionalblockheight
+		\advance\pgf@y by -.5\dp\pgfnodeparttextbox%
+		\advance\pgf@y by -\functionalblockpfheight\functionalblockheight
+		\advance\pgf@y by -\functionalblockvarmargin
+	}
+	
+	\savedanchor{\g}{
+		\pgf@x=.5\wd\pgfnodeparttextbox
+		\advance\pgf@x by \functionalblocklineoutside\functionalblockwidth%
+		\pgf@y=0.2\functionalblockheight
+		\advance\pgf@y by -.5\dp\pgfnodeparttextbox%
+		\advance\pgf@y by -\functionalblockqgheight\functionalblockheight
+		\advance\pgf@y by -\functionalblockvarmargin
+	}
+	
+	
+% 	\def\crossbarleftcrossing{0.3}
+% \def\crossbarrightcrossing{0.8}
+	
+	%\savedanchor{\pcrossing}{
+	%	\pgf@x=.5\wd\pgfnodeparttextbox
+	%	\advance\pgf@x by -\crossbarcrossing\crossbarwidth%
+	%	\pgf@y=0.2\crossbarheight
+	%	\advance\pgf@y by -.5\dp\pgfnodeparttextbox%
+	%	\advance\pgf@y by -\crossbarpfheight\crossbarheight
+	%	\advance\pgf@y by -\crossbarvarmargin
+	%}
+	%\savedanchor{\gcrossing}{
+	%	\pgf@x=.5\wd\pgfnodeparttextbox
+	%	\advance\pgf@x by \crossbarcrossing\crossbarwidth%
+	%	\pgf@y=0.2\crossbarheight
+	%	\advance\pgf@y by -.5\dp\pgfnodeparttextbox%
+	%	\advance\pgf@y by -\crossbarqgheight\crossbarheight
+	%	\advance\pgf@y by -\crossbarvarmargin
+	%}
+	%\savedanchor{\fcrossing}{
+	%	\pgf@x=.5\wd\pgfnodeparttextbox
+	%	\advance\pgf@x by \crossbarcrossing\crossbarwidth%
+	%	\pgf@y=0.2\crossbarheight
+	%	\advance\pgf@y by -.5\dp\pgfnodeparttextbox%
+	%	\advance\pgf@y by -\crossbarpfheight\crossbarheight
+	%	\advance\pgf@y by -\crossbarvarmargin
+	%}
+	%\savedanchor{\qcrossing}{
+	%	\pgf@x=.5\wd\pgfnodeparttextbox
+	%	\advance\pgf@x by -\crossbarcrossing\crossbarwidth%
+	%	\pgf@y=0.2\crossbarheight
+	%	\advance\pgf@y by -.5\dp\pgfnodeparttextbox%
+	%	\advance\pgf@y by -\crossbarqgheight\crossbarheight
+	%	\advance\pgf@y by -\crossbarvarmargin
+	%}
+	
+	\anchor{f}{\f}
+	\anchor{g}{\g}
+	\anchor{p}{\p}
+	\anchor{q}{\q}
+	\anchor{pp}{\pp}
+	\anchor{var}{\variableanchor}
+	
+	\backgroundpath{
+		
+		%%%%%%%%
+		% draw the rectangle
+
+		% store lower right in xa/ya and upper right in xb/yb
+		\southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
+		\northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y
+
+		\pgfpathmoveto{\pgfpoint{\pgf@xa}{\pgf@ya}}
+		\pgfpathlineto{\pgfpoint{\pgf@xa}{\pgf@yb}}
+		\pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@yb}}
+		\pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@ya}}
+		\pgfpathlineto{\pgfpoint{\pgf@xa}{\pgf@ya}}
+ 		\pgfusepath{draw}
+		
+		
+		%%%%%%%
+		% draw the variable input
+% 		\variableanchor \pgf@xa=\pgf@x \pgf@ya=\pgf@y
+% 		\pgf@xb=\pgf@x 
+% 		\pgf@yb=0pt
+% 		\advance\pgf@yb by -0.2\crossbarvarmargin%
+% 		\pgfpathmoveto{\pgfpoint{\pgf@xa}{\pgf@ya}}
+% 		\pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@yb}}
+% 		\pgfusepath{draw}
+		
+		
+		%%%%%%%
+		% draw the vertical bars
+		
+		%\pgfsetlinewidth{\functionalblocklinethickness\defaultpgflinewidth}
+		\p \pgf@xa=\pgf@x \pgf@ya=\pgf@y
+		\pp \pgf@xb=\pgf@x \pgf@yb=\pgf@y
+		%\f \pgf@xb=\pgf@x \pgf@yb=\pgf@y
+		\pgfpathmoveto{\pgfpoint{\pgf@xa}{\pgf@ya}}
+		\pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@yb}}
+
+
+		\q \pgf@xa=\pgf@x \pgf@ya=\pgf@y
+		\g \pgf@xb=\pgf@x \pgf@yb=\pgf@y
+		%\pgfpathmoveto{\pgfpoint{\pgf@xa}{\pgf@ya}}
+		%\pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@yb}}
+
+
+
+		%%%%%%%
+		% draw the cross
+		%\pcrossing \pgf@xa=\pgf@x \pgf@ya=\pgf@y
+		%\gcrossing \pgf@xb=\pgf@x \pgf@yb=\pgf@y
+		%\pgfpathmoveto{\pgfpoint{\pgf@xa}{\pgf@ya}}
+		%\pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@yb}}
+
+		%\qcrossing \pgf@xa=\pgf@x \pgf@ya=\pgf@y
+		%\fcrossing \pgf@xb=\pgf@x \pgf@yb=\pgf@y
+		%\pgfpathmoveto{\pgfpoint{\pgf@xa}{\pgf@ya}}
+		%\pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@yb}}
+		%\pgfusepath{draw}
+		
+	}
+}
+\makeatother
+
+
+\tikzset{crossbar/.style={shape=crossbargate,scale=0.5,font=\huge}}
+\tikzset{crossin/.style={xshift=-.3em,inner sep=1pt}}
+\tikzset{crossout/.style={xshift=.3em,inner sep=1pt}}
+\tikzset{combiner/.style={shape=combinergate}}
+\tikzset{splitter/.style={shape=splittergate}}
+
+\tikzset{functionalblock/.style={shape=functionalblockgate,scale=0.5,font=\huge}}
+
+\newcounter{unlabeledcrossbarcounter}
+\newcommand{\crossbar}[2][]{
+	\def\unlabeledcrossbarname{unlabeledcrossbarname\theunlabeledcrossbarcounter}
+    \ifstrempty{#1}{
+    	\node[shape=oldcrossbargate] (\unlabeledcrossbarname) {#2};
+    }
+    {
+    	\node[shape=oldcrossbargate,#1] (\unlabeledcrossbarname) {#2};
+    }
+    \node at (\unlabeledcrossbarname.varpos) {#2};
+    \stepcounter{unlabeledcrossbarcounter}
+}
+
+
+% #1 parameter
+% #2 label
+% #3 position
+% #4 variable
+
+\newcommand{\crossbarat}[4][]{
+    \ifstrempty{#1}{
+    	\node[shape=oldcrossbargate] (#4) at (#3) {};
+    }
+    {
+    	\node[shape=oldcrossbargate,#1] (#4) at (#3) {};
+    }
+    \node[text height=1.5ex,text depth=0.25ex] at (#4.varpos) {#2};
+}
+
+\newcounter{unlabeledfunctionalblockcounter}
+\newcommand{\functionalblock}[2][]{
+	\def\unlabeledcrossbarname{unlabeledfunctionalblockname\theunlabeledfunctionalblockcounter}
+    \ifstrempty{#1}{
+    	\node[shape=functionalproduct] (\unlabeledfunctionalblockname) {#2};
+    }
+    {
+    	\node[shape=functionalproduct,#1] (\unlabeledfunctionalblockname) {#2};
+    }
+    \node at (\unlabeledfunctionalblockname.varpos) {#2};
+    \stepcounter{unlabeledfunctionalblockcounter}
+}
+
+\newcommand{\functionalblockat}[4][]{
+    \ifstrempty{#1}{
+    	\node[shape=functionalproduct] (#4) at (#3) {};
+    }
+    {
+    	\node[shape=functionalproduct,#1] (#4) at (#3) {};
+    }
+    \node[text height=1.5ex,text depth=0.25ex] at (#4.varpos) {#2};
+}
+
+
+% TODO convenience Funktionen, die den Weg durch ein Gate highliten
