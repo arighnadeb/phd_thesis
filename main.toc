@@ -1,0 +1,75 @@
+\contentsline {chapter}{\numberline {1}Introduction}{3}
+\contentsline {part}{I\hspace {1em}Optical Computing}{9}
+\contentsline {chapter}{\numberline {2}Background on Optical Computing}{11}
+\contentsline {section}{\numberline {2.1}Optical Devices and Logic Models}{11}
+\contentsline {section}{\numberline {2.2}Related Work}{12}
+\contentsline {chapter}{\numberline {3}Synthesis of Optical Circuit Using Two-Level Representations}{13}
+\contentsline {section}{\numberline {3.1}Two-Level Representation}{13}
+\contentsline {section}{\numberline {3.2}Gate-Efficient Synthesis}{14}
+\contentsline {subsection}{\numberline {3.2.1}Realization of Product Terms}{14}
+\contentsline {subsection}{\numberline {3.2.2}Synthesis based on SoP Representation}{15}
+\contentsline {subsection}{\numberline {3.2.3}Synthesis based on ESoP Representation}{16}
+\contentsline {section}{\numberline {3.3}Splitter-Free Synthesis}{17}
+\contentsline {subsection}{\numberline {3.3.1}Synthesis based on SoP Representation}{18}
+\contentsline {subsection}{\numberline {3.3.2}Synthesis based on ESoP Representation}{19}
+\contentsline {section}{\numberline {3.4}Post-Synthesis Optimization Method}{20}
+\contentsline {section}{\numberline {3.5}Experimental Evaluation}{21}
+\contentsline {section}{\numberline {3.6}Discussion}{22}
+\contentsline {section}{\numberline {3.7}Chapter Contribution and Summary}{23}
+\contentsline {chapter}{\numberline {4}Synthesis of Optical Circuit Using Binary Decision Diagram}{25}
+\contentsline {subsection}{\numberline {4.0.1}Binary Decision Diagram}{28}
+\contentsline {section}{\numberline {4.1}BDD-based Synthesis}{29}
+\contentsline {subsection}{\numberline {4.1.1}Gate-Efficient Approach}{29}
+\contentsline {subsection}{\numberline {4.1.2}Splitter-Free Approach}{30}
+\contentsline {section}{\numberline {4.2}BDD Optimization}{32}
+\contentsline {subsection}{\numberline {4.2.1}Motivation}{32}
+\contentsline {subsection}{\numberline {4.2.2}Exploiting BDD Optimization}{33}
+\contentsline {subsubsection}{Determining a Good Variable Order}{33}
+\contentsline {subsection}{\numberline {4.2.3}Reducing Splitters in Gate-Efficient Circuits}{34}
+\contentsline {subsection}{\numberline {4.2.4}Reducing Gates in Splitter-Free Circuits}{36}
+\contentsline {section}{\numberline {4.3}Experimental Evaluation}{37}
+\contentsline {subsection}{\numberline {4.3.1}Effect of Splitter Minimization to Gate-Efficient BDD-based Synthesis}{37}
+\contentsline {subsection}{\numberline {4.3.2}Effect of Gate Minimization to Splitter-Free BDD-based Synthesis}{39}
+\contentsline {section}{\numberline {4.4}Discussion}{41}
+\contentsline {section}{\numberline {4.5}Chapter Contribution and Summary}{42}
+\contentsline {chapter}{\numberline {5}OR-Inverter Graphs for Synthesis of Optical Circuits}{43}
+\contentsline {section}{\numberline {5.1}Motivation}{43}
+\contentsline {section}{\numberline {5.2}OR-Inverter Graph}{44}
+\contentsline {section}{\numberline {5.3}Proposed approach}{45}
+\contentsline {subsection}{\numberline {5.3.1}Transformation of AIG into OIG}{45}
+\contentsline {subsection}{\numberline {5.3.2}Gate-efficient Synthesis Flow}{46}
+\contentsline {subsection}{\numberline {5.3.3}Splitter-free Synthesis Flow}{47}
+\contentsline {section}{\numberline {5.4}Experimental Evaluation}{48}
+\contentsline {section}{\numberline {5.5}Discussion}{49}
+\contentsline {section}{\numberline {5.6}Chapter Contribution and Summary}{50}
+\contentsline {part}{II\hspace {1em}Reversible Computing}{51}
+\contentsline {chapter}{\numberline {6}Background on Reversible Computing}{55}
+\contentsline {section}{\numberline {6.1}Reversible Functions}{55}
+\contentsline {section}{\numberline {6.2}Reversible Circuits}{56}
+\contentsline {section}{\numberline {6.3}Applied Cost Metrics}{57}
+\contentsline {section}{\numberline {6.4}Related Work}{58}
+\contentsline {chapter}{\numberline {7}Reversible Synthesis of Symmetric Boolean Function}{59}
+\contentsline {section}{\numberline {7.1}Symmetric Boolean Function}{59}
+\contentsline {section}{\numberline {7.2}Quantum Cost Aware Synthesis}{60}
+\contentsline {section}{\numberline {7.3}Line Aware Synthesis}{61}
+\contentsline {section}{\numberline {7.4}Synthesis of Arbitrary Symmetric Boolean Function}{62}
+\contentsline {section}{\numberline {7.5}Experimental Evaluation}{63}
+\contentsline {section}{\numberline {7.6}Discussion}{64}
+\contentsline {section}{\numberline {7.7}Chapter Contribution and Summary}{65}
+\contentsline {part}{III\hspace {1em}Quaternary Quantum Computing}{67}
+\contentsline {chapter}{\numberline {8}Background on Quaternary Quantum Computing}{71}
+\contentsline {section}{\numberline {8.1}Quantum Quaternary Logic}{71}
+\contentsline {subsection}{\numberline {8.1.1}GF(4) Arithmetic}{71}
+\contentsline {subsection}{\numberline {8.1.2}Quantum Quaternary Circuits}{72}
+\contentsline {subsection}{\numberline {8.1.3}Applied Cost Metrics}{73}
+\contentsline {section}{\numberline {8.2}Existing Design Schemes}{74}
+\contentsline {chapter}{\numberline {9}Quantum Quaternary Synthesis of Symmetric Boolean Function}{75}
+\contentsline {section}{\numberline {9.1}Quaternary Interpretation of Symmetric Boolean Function}{75}
+\contentsline {section}{\numberline {9.2}Proposed Synthesis and Optimization Technique}{76}
+\contentsline {subsection}{\numberline {9.2.1}Design of Quaternary Quantum Array}{76}
+\contentsline {subsection}{\numberline {9.2.2}Optimization of Quaternary Quantum Array}{77}
+\contentsline {section}{\numberline {9.3}Synthesis of Arbitrary Symmetric Boolean Function}{78}
+\contentsline {section}{\numberline {9.4}Experimental Evaluation}{79}
+\contentsline {section}{\numberline {9.5}Discussion}{80}
+\contentsline {section}{\numberline {9.6}Chapter Contribution and Summary}{81}
+\contentsline {chapter}{\numberline {10}Conclusion and future work}{83}
