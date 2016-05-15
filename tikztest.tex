@@ -519,6 +519,7 @@
 
 	}
 }
+ 
 
 \pgfdeclareshape{functionalproduct}{
 
@@ -561,26 +562,25 @@
 		\pgf@y=-0.2\functionalblockheight
 	}
 	
-			%\savedanchor{\pcross}{
-	%	\pgf@x=-0.25\crossbarwidth 
-	%	\pgf@y=0.2\crossbarheight
-	%}
+         \savedanchor{\pp}{
+			\pgf@x=-0.5\functionalblockwidth
+			\pgf@y=0.2\functionalblockheight
+	}
+ 
+        \savedanchor{\qq}{
+                       \pgf@x=-0.5\functionalblockwidth
+                       \pgf@y=-0.2\functionalblockheight
+        }
+
+        \savedanchor{\ff}{
+                        \pgf@x=0.5\functionalblockwidth
+                        \pgf@y=0.2\functionalblockheight
+        }
 	
-	%\savedanchor{\qcross}{
-	%	\pgf@x=-0.25\crossbarwidth 
-	%	\pgf@y=-0.2\crossbarheight
-	%}	
-	
-	%\savedanchor{\fcross}{
-	%	\pgf@x=0.25\crossbarwidth 
-	%	\pgf@y=0.2\crossbarheight	
-	%}
-	
-	%\savedanchor{\gcross}{
-	%	\pgf@x=0.25\crossbarwidth 
-	%	\pgf@y=-0.2\crossbarheight
-	%}
-	
+        \savedanchor{\gg}{
+                        \pgf@x=0.5\functionalblockwidth
+                        \pgf@y=-0.2\functionalblockheight
+        }
 	
 	\anchor{f}{\f}
 	\anchor{g}{\g}
@@ -604,28 +604,26 @@
 		\pgfusepath{draw}
 		
 		
-		% Bars
+		% incoming/outgoing edges
 		\p \pgf@xa=\pgf@x \pgf@ya=\pgf@y
-		\f \pgf@xb=\pgf@x \pgf@yb=\pgf@y
-		%\pgfpathmoveto{\pgfpoint{\pgf@xa}{\pgf@ya}}
-		%\pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@yb}}
+                \pp \pgf@xb=\pgf@x \pgf@yb=\pgf@y
+		\pgfpathmoveto{\pgfpoint{\pgf@xa}{\pgf@ya}}
+		\pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@yb}}
+		
+                \f \pgf@xa=\pgf@x \pgf@ya=\pgf@y
+                \ff \pgf@xb=\pgf@x \pgf@yb=\pgf@y
+                \pgfpathmoveto{\pgfpoint{\pgf@xa}{\pgf@ya}}
+		\pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@yb}}
 		
 		\q \pgf@xa=\pgf@x \pgf@ya=\pgf@y
-		\g \pgf@xb=\pgf@x \pgf@yb=\pgf@y
-		%\pgfpathmoveto{\pgfpoint{\pgf@xa}{\pgf@ya}}
-		%\pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@yb}}
-		
+                \qq \pgf@xb=\pgf@x \pgf@yb=\pgf@y
+		\pgfpathmoveto{\pgfpoint{\pgf@xa}{\pgf@ya}}
+		\pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@yb}}
 
-		% Cross
-	  %	\pcross \pgf@xa=\pgf@x \pgf@ya=\pgf@y
-	%	\gcross \pgf@xb=\pgf@x \pgf@yb=\pgf@y
-	%	\pgfpathmoveto{\pgfpoint{\pgf@xa}{\pgf@ya}}
-	%	\pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@yb}}	
-		
-	%	\fcross \pgf@xa=\pgf@x \pgf@ya=\pgf@y
-	%	\qcross \pgf@xb=\pgf@x \pgf@yb=\pgf@y
-	%	\pgfpathmoveto{\pgfpoint{\pgf@xa}{\pgf@ya}}
-	%	\pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@yb}}
+                 \g \pgf@xa=\pgf@x \pgf@ya=\pgf@y
+                 \gg \pgf@xb=\pgf@x \pgf@yb=\pgf@y
+                  \pgfpathmoveto{\pgfpoint{\pgf@xa}{\pgf@ya}}
+      		  \pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@yb}}
 		
 		% enforce drawing
 		\pgfusepath{draw}			
@@ -770,13 +768,13 @@
 		
 		%%%%%%%
 		% draw the variable input
-% 		\variableanchor \pgf@xa=\pgf@x \pgf@ya=\pgf@y
-% 		\pgf@xb=\pgf@x 
-% 		\pgf@yb=0pt
-% 		\advance\pgf@yb by -0.2\crossbarvarmargin%
-% 		\pgfpathmoveto{\pgfpoint{\pgf@xa}{\pgf@ya}}
-% 		\pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@yb}}
-% 		\pgfusepath{draw}
+		\variableanchor \pgf@xa=\pgf@x \pgf@ya=\pgf@y
+		\pgf@xb=\pgf@x 
+		\pgf@yb=0pt
+		\advance\pgf@yb by -0.2\crossbarvarmargin%
+		\pgfpathmoveto{\pgfpoint{\pgf@xa}{\pgf@ya}}
+ 		\pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@yb}}
+ 		\pgfusepath{draw}
 		
 		
 		%%%%%%%
@@ -821,7 +819,7 @@
 \tikzset{combiner/.style={shape=combinergate}}
 \tikzset{splitter/.style={shape=splittergate}}
 
-\tikzset{functionalblock/.style={shape=functionalblockgate,scale=0.5,font=\huge}}
+\tikzset{functionalblock/.style={shape=functionalblockgate,scale=0.5,font=\scriptsize}}
 
 \newcounter{unlabeledcrossbarcounter}
 \newcommand{\crossbar}[2][]{
@@ -872,8 +870,9 @@
     {
     	\node[shape=functionalproduct,#1] (#4) at (#3) {};
     }
-    \node[text height=1.5ex,text depth=0.25ex] at (#4.varpos) {#2};
+    \node[text height=8.5ex,text depth=0.25ex, align=center] at (#4.varpos) {#2};
 }
+
 
 
 % TODO convenience Funktionen, die den Weg durch ein Gate highliten
