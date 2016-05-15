@@ -218,7 +218,7 @@ is realized. Fig.~\ref{fig:gates} provides the graphical representation of a cro
 }
 \subfloat[Identity]{\label{fig:crossbar_identity}~~~
 \begin{tikzpicture}
-\functionalblockat{$\overline{x}$}{0,0}{cb}
+\functionalblockat{}{0,0}{cb}
 \draw (cb.p) -- (cb.f);
 \draw (cb.q) -- (cb.g);
 
@@ -228,10 +228,30 @@ is realized. Fig.~\ref{fig:gates} provides the graphical representation of a cro
 \node[crossout] at (cb.g) {$g$};
 \node at (\centermove,0) {};
 \node at (-\centermove,0) {};
+\node[draw=none, above=2.6mm of cb] (xbar) at (cb) {$\overline{x}$};
 \end{tikzpicture}~~~
 }
 \subfloat[Switch]{\label{fig:crossbar_cross}~~~
 \begin{tikzpicture}
+\functionalblockat{}{0,0}{cb}
+
+\coordinate (pt1) at (-0.15,0.15) ; 
+\coordinate (pt2) at (0.15,-0.15);
+\coordinate (pt3) at (0.15,0.15);
+\coordinate (pt4) at (-0.15,-0.15);
+
+\draw (cb.p) -- (pt1);
+\draw (cb.g) -- (pt2);
+\draw (cb.f) -- (pt3);
+\draw (cb.q) -- (pt4);
+\draw (pt1) -- (pt2);
+\draw (pt3) -- (pt4);
+
+\node[draw=none, above=2.6mm of cb] (x) at (cb) {$x$};
+\node[crossin] at (cb.p) {$p$};
+\node[crossin] at (cb.q) {$q$};
+\node[crossout] at (cb.f) {$f$};
+\node[crossout] at (cb.g) {$g$};
 \end{tikzpicture}~~~
 }
 \caption{Crossbar gate}\label{fig:gates}
@@ -448,14 +468,24 @@ Fig.~\ref{fig:circuit} shows an optical circuit composed of two MZI gates, two s
 \label{fig:circuit}
 \end{figure}
 
-\section{Related Work}
+\section{Literature Review}
 
-\todo[inline]{mention somewhere either at the beginning or middle or end that it is a designer choice to select the gate library. but main is the cost functions which are same.}
-\todo[inline]{add works which are based on crossbar gate library}
+In mid 1980, the idea of making an all optical computer was conceived~\cite{TODO}. However, the CMOS technology was making steady progress during that time. Therefore, exploiting optics in computations was almost ignored. But in the last decades as CMOS technology is nearly ending, optical logic has re-emerged for computations. Several research works proposed and demonstrated basic Boolean operations~\cite{TODO}. In~\cite{Kim:06}, the authors have proposed all-optical multiple logic gates using two parallel semiconductor optical amplifier (SOA)-Mach-Zehnder interferometer (MZI) structures that enable simultaneous operations of various logic functions of XOR, NOR, OR, and NAND. The proposed scheme is experimentally demonstrated to confirm its validity. In~\cite{Nesset1995896,Houbavlis20041622,Kim2004608,dong200680gb}, an all-optical logic gate realizing AND operation are reported. All these realizations use different optical phenomena such as four-wave mixing~\cite{Nesset1995896}, cross phase modulation~\cite{Houbavlis20041622,Kim2004608} and semiconductor optical amplifier (SOA) based Mach-Zehnder interferometer (MZI)~\cite{dong200680gb}. In~\cite{kang2009all}, a method with high speed all-optical XOR and XNOR operations is proposed. While earlier realizations~\cite{Kim:06,dong200680gb} worked at 10 and 80 Gb/s, this works at 86.4 Gb/s. In~\cite{Martinez2007}, the authors proposed a Boolean device based on a single Mach-Zehnder interferometer with semiconductor optical amplifiers which can be reconfigured to operate as a logic XOR, AND, OR, and NOT gate. In~\cite{singh2012ultrahigh}, the author presented a design  of
+all-optical  logic  gates  OR,  AND,  XNOR,  and  XOR  at  ultrahigh
+speed. 
 
-\todo[inline]{add works which are based on MZI-SOA gate library}
+Besides logic gates, digital logic circuits received recent attention. Several combinational logic blocks such as adder~\cite{DattaCS15,cherri2010circuit,kumar2014implementation}, multiplexer~\cite{Datta2014}, divider~\cite{Aikawa2011} are proposed. In~\cite{kumar2014implementation}, the full adder and full subtractor are realized using an electro-optic Mach--Zehnder interferometers. In~\cite{cherri2010circuit}, the authors combine the attractive and powerful parallelism property of the modified signed-digit (MSD) number representation with the ultra-fast all-optical switching property of the semiconductor optical amplifier and Mach–Zehnder interferometer (SOA–MZI) to design and implement all-optical MSD adder/subtracter circuits. In~\cite{DattaCS15}, the authors proposed a ripple-carry adder, an extension with faster carry propagation, and a carry save adder. In~\cite{}, the authors proposed directed logic, where different logic circuits with two logical outputs; one
+complements the other. Additionally, a programmable logic unit has been proposed~\cite{Chattopadhyay:11}. This realization is limited to 2 inputs only.
 
-\todo[inline]{research on optical logic synthesis is still in its early stage of development. The initial work on basic Boolean operations such as EXOR, AND, OR etc. are available. Then arithmetic circuits are designed. Distinguish which design uses MZI and which one crossbar gate. All these designs realize dedicated building blocks. Synthesis of any Boolean functions received recent attention. Mention BDD based synthesis. }
+However, all these are ad hoc solutions in the sense that each of them 
+\begin{itemize}
+\item has mainly been derived manually for a special purpose,
+\item addresses a very specific type of functional block, 
+\item is often not extendable to arbitrary functions, and
+\item is typically suitable for small functions only, i.e.~is limited 
+with respect to its scalability. %, with the scalability properties being very limited.
+\end{itemize}
+A first attempt towards generic approaches has been considered in~\cite{Condrat2011}. Here, synthesis approach based on BDD is proposed. This enables synthesis of functions containing over 100 variables and thus is a major step towards design of complex systems in optical logic. Recently, another BDD based approach is reported in~\cite{TODO}. While, optical circuit composed of crossbar gates are obtained from~\cite{Condrat2011}, solution proposed in~\cite{TODO} generates circuits composed of MZI gates. Although, these solutions synthesized circuits using two different gate libraries, they have a common shortcoming. Both designs, irrespective of gate library generates circuits consisting of huge number of splitters which ultimately leads to poor signal strength. To avoid this problem, an alternative solution again based on BDD is proposed in~\cite{TODO}. This scheme generates splitter-free circuit.  
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
